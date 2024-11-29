@@ -1,0 +1,53 @@
+/* Contenedor principal */
+.login-container {
+  height: 100vh;
+  background-color: #f8f9fa; /* Color de fondo claro */
+}
+
+/* Rectángulo del Login */
+.login-card {
+  background-color: #fff;
+  border-radius: 8px; /* Bordes redondeados */
+  max-width: 400px; /* Ancho máximo del login */
+  width: 100%; /* Responsivo */
+  padding: 30px; /* Espacio interior */
+  text-align: center;
+}
+
+/* Logo */
+.logo {
+  width: 180px; /* Ajusta el ancho del logo */
+}
+
+/* Input */
+.login-card .form-control {
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* Selector de rol */
+.login-card .form-select {
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* Botón */
+.login-card .btn-success {
+  background-color: #2DD69C;
+  border: none;
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.login-card .btn-success:hover {
+  background-color: #28B87C;
+}
+
+/* Mensajes de error */
+.text-danger {
+  font-size: 14px;
+  font-weight: bold;
+}

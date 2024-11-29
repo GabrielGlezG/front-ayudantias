@@ -1,0 +1,32 @@
+body {
+  color: #2c3e50; /* Color del texto, oscuro */
+  background-color: #f0f0f0; /* Color de fondo, gris más claro */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Fuente por defecto */
+}
+
+h2, h3, h4, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Añadir al archivo CSS global */
+.table {
+  table-layout: fixed; /* Distribuye el ancho uniformemente */
+}
+
+.table th,
+.table td {
+  vertical-align: middle; /* Centra verticalmente el contenido */
+  text-align: center; /* Centra horizonltalmente */
+}
+
+.table-hover td.text-center {
+  vertical-align: middle;
+}
+
+.text-muted {
+  margin-top: 10px; /* Ajusta según sea necesario */
+  display: block; /* Asegura que se comporte como un bloque */
+}

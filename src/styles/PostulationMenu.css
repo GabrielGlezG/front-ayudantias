@@ -1,0 +1,8 @@
+.btn {
+  border: none; /* Quita el borde */
+  box-shadow: none; /* Quita la sombra */
+}
+
+.btn:focus {
+  box-shadow: none; /* Quita el efecto de enfoque */
+}
