@@ -60,7 +60,10 @@ const FilterControls = ({
 
     {/* Excel Downloader */}
     <div className="ms-auto">
-      <ExcelDownloader filteredPostulaciones={filteredPostulaciones} />
+    <ExcelDownloader 
+          filteredPostulaciones={filteredPostulaciones}
+          estudiantes={estudiantes}
+        />
     </div>
   </div>
 );

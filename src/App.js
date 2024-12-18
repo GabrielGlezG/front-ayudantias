@@ -1,6 +1,5 @@
-// src/App.js
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/Login';
 import Postulation from './pages/Postulation';
@@ -17,7 +16,9 @@ const App = () => {
       <Router>
         <HeaderWrapper /> {/* Componente para el Header */}
         <Routes>
-          <Route path="/" element={<Login />} />
+          {/* Redirige la ruta raíz a /login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/postulation/:userId" element={<Postulation />} />
           <Route path="/selection/:userId" element={<Selection />} /> {/* Nueva ruta para el director */}
           <Route path="/Reports/:userId" element={<Reports />} /> {/* Nueva ruta para el ayudante */}

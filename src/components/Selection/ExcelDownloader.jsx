@@ -1,12 +1,11 @@
-// src/components/ExcelDownloader.js
 import React from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-const ExcelDownloader = ({ filteredPostulaciones }) => {
+const ExcelDownloader = ({ filteredPostulaciones, estudiantes }) => {
   const downloadExcel = () => {
     try {
-      // Verificar si hay postulaciones
+      // Verificar si hay datos
       if (!filteredPostulaciones?.length) {
         alert('No hay datos para exportar');
         return;
@@ -15,7 +14,10 @@ const ExcelDownloader = ({ filteredPostulaciones }) => {
       // Preparar los datos para exportar
       const dataToExport = filteredPostulaciones.flatMap((postulacion) =>
         postulacion.materias.map((materia) => ({
-          'ID Usuario': postulacion.usuario_id || 'No disponible',
+          'Nombre del Estudiante':
+            estudiantes[postulacion.usuario_id]?.nombre || 'No disponible',
+          'RUT del Estudiante':
+            estudiantes[postulacion.usuario_id]?.rut || 'No disponible',
           'ID Materia': materia.materia?.id || 'No disponible',
           'Nombre Asignatura': materia.materia?.nombre || 'No disponible',
           'ID Departamento': materia.materia?.id_departamento || 'No disponible',
@@ -34,7 +36,8 @@ const ExcelDownloader = ({ filteredPostulaciones }) => {
 
       // Ajustar el ancho de las columnas
       worksheet['!cols'] = [
-        { wch: 12 }, // ID Usuario
+        { wch: 25 }, // Nombre del Estudiante
+        { wch: 20 }, // RUT del Estudiante
         { wch: 12 }, // ID Materia
         { wch: 40 }, // Nombre Asignatura
         { wch: 15 }, // ID Departamento
