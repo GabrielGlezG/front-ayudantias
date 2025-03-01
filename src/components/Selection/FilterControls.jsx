@@ -1,6 +1,7 @@
 import React from 'react';
 import Filter from '../Filter';
 import ExcelDownloader from '../Selection/ExcelDownloader';
+import ViewEvaluationsButton from './ViewEvaluationsButton';
 
 const FilterControls = ({
   filterText,
@@ -59,12 +60,14 @@ const FilterControls = ({
     </Filter>
 
     {/* Excel Downloader */}
-    <div className="ms-auto">
-    <ExcelDownloader 
-          filteredPostulaciones={filteredPostulaciones}
-          estudiantes={estudiantes}
-        />
-    </div>
+    <div className="ms-auto d-flex gap-2">
+   <ExcelDownloader 
+     filteredPostulaciones={filteredPostulaciones}
+     estudiantes={estudiantes}
+   />
+   <ViewEvaluationsButton idHelper={1} /> {/* Aquí puedes pasar dinámicamente el id */}
+</div>
+
   </div>
 );
 

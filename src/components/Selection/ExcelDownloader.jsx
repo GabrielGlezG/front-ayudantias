@@ -63,9 +63,20 @@ const ExcelDownloader = ({ filteredPostulaciones, estudiantes }) => {
 
   return (
     <button
-      className="btn btn-success btn-sm"
+      className="btn btn-sm"
       onClick={downloadExcel}
       title="Descargar datos en Excel"
+      style={{ 
+        fontSize: '0.85rem', 
+        padding: '6px 12px', 
+        borderRadius: '8px', 
+        backgroundColor: '#198174', 
+        border: 'none', 
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px'
+      }}
     >
       <i className="bi bi-download"></i> Descargar Excel
     </button>

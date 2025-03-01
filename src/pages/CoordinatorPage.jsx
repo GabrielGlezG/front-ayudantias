@@ -23,47 +23,55 @@ const CoordinadorPage = () => {
   useEffect(() => {
     const obtenerAyudantes = async () => {
       try {
-        const data = await fetchAyudantes();
-
-        // Agrupar las asignaturas por usuario
+        const ayudantes = await fetchAyudantes(); // 🔹 Ahora obtenemos el array directamente
+        
+        console.log("Ayudantes recibidos:", ayudantes); // ✅ Verificamos que estamos recibiendo datos
+    
+        if (!Array.isArray(ayudantes) || ayudantes.length === 0) {
+          throw new Error("No hay ayudantes disponibles.");
+        }
+    
         const groupedData = [];
-        for (const ayudante of data) {
-          const { nombre, rut } = ayudante.estudiante;
+    
+        for (const ayudante of ayudantes) { // 🔹 Recorremos directamente `ayudantes`
+          const { id, estudiante, seccion } = ayudante; // 📌 `id` es el ID correcto del ayudante
+          if (!id || !estudiante || !seccion) continue;
+    
           const asignatura = {
-            asignatura: ayudante.seccion.materia.nombre,
-            seccion: ayudante.seccion.codigo,
-            id_seccion: ayudante.seccion.id,
-            id: ayudante.seccion.materia.id,
-            codigo: ayudante.seccion.codigo,
-            departamentoId: ayudante.seccion.materia.id_departamento,
-            tieneReportes: false, // Inicialmente sin reportes
+            asignatura: seccion.materia.nombre,
+            seccion: seccion.codigo,
+            id_seccion: seccion.id,
+            id: seccion.materia.id,
+            departamentoId: seccion.materia.id_departamento,
+            tieneReportes: false,
           };
-
-          // Verificar si hay reportes para esta sección
+    
           try {
-            const reportes = await fetchReportesBySeccion(ayudante.seccion.id);
+            const reportes = await fetchReportesBySeccion(seccion.id);
             if (reportes.length > 0) {
               asignatura.tieneReportes = true;
             }
           } catch (err) {
-            console.error(`Error al verificar reportes para la sección ${ayudante.seccion.id}`, err);
+            console.error(`Error al verificar reportes para la sección ${seccion.id}`, err);
           }
-
-          // Buscar si ya existe el ayudante
-          const existing = groupedData.find((item) => item.rut === rut);
+    
+          // 📌 Nos aseguramos de pasar el `id_ayudante` correcto
+          const existing = groupedData.find((item) => item.rut === estudiante.rut);
           if (existing) {
             existing.asignaturas.push(asignatura);
           } else {
             groupedData.push({
-              nombre,
-              rut,
+              id_ayudante: id, // ✅ `id` es el ID del ayudante, no del estudiante
+              nombre: estudiante.nombre,
+              rut: estudiante.rut,
               asignaturas: [asignatura],
             });
           }
         }
-
+    
         setAyudantes(groupedData);
       } catch (err) {
+        console.error("Error al cargar ayudantes:", err);
         setError(err.message || 'Error al cargar los ayudantes.');
         toast.error(err.message || 'Error al cargar los ayudantes.');
       } finally {

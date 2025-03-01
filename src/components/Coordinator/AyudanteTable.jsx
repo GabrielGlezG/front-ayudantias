@@ -1,18 +1,19 @@
 import React from 'react';
 import ViewReportsButton from './ViewReportsButton';
+import EvaluateHelperButton from './EvaluateHelperButton'; // Importamos el botón de evaluación
 
 const AyudanteTable = ({ ayudantes }) => {
   return (
     <div className="table-responsive">
-      <table className="table table-hover">
+      <table className="table table-hover align-middle">
         <thead className="table-light">
           <tr>
-            <th>N°</th>
-            <th>Nombre</th>
-            <th>RUT</th>
-            <th>Asignatura</th>
-            <th>Sección</th>
-            <th>Reportes</th>
+            <th style={{ width: '5%' }}>N°</th>
+            <th style={{ width: '20%' }}>Nombre</th>
+            <th style={{ width: '15%' }}>RUT</th>
+            <th style={{ width: '20%' }}>Asignatura</th>
+            <th style={{ width: '15%' }}>Sección</th>
+            <th style={{ width: '25%' }} className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -22,29 +23,37 @@ const AyudanteTable = ({ ayudantes }) => {
                 <tr key={`${index}-${idx}`}>
                   {idx === 0 && (
                     <>
-                      <td rowSpan={ayudante.asignaturas.length}>{index + 1}</td>
-                      <td rowSpan={ayudante.asignaturas.length}>{ayudante.nombre}</td>
-                      <td rowSpan={ayudante.asignaturas.length}>{ayudante.rut}</td>
+                      <td rowSpan={ayudante.asignaturas.length} className="align-middle text-center">
+                        {index + 1}
+                      </td>
+                      <td rowSpan={ayudante.asignaturas.length} className="align-middle">
+                        {ayudante.nombre}
+                      </td>
+                      <td rowSpan={ayudante.asignaturas.length} className="align-middle">
+                        {ayudante.rut}
+                      </td>
                     </>
                   )}
-                  <td>{asignatura.asignatura}</td>
-                  <td>Sección {asignatura.seccion}</td>
-                  <td>
-                    {asignatura.tieneReportes ? (
-                      <ViewReportsButton
+                  <td className="align-middle">{asignatura.asignatura}</td>
+                  <td className="align-middle">Sección {asignatura.seccion}</td>
+                  <td className="align-middle">
+                    <div className="d-flex justify-content-center align-items-center gap-2">
+                      {asignatura.tieneReportes ? (
+                        <ViewReportsButton
+                          idSeccion={asignatura.id_seccion}
+                          asignatura={asignatura.asignatura}
+                        />
+                      ) : (
+                        <span className="text-muted">Sin reportes</span>
+                      )}
+                      <EvaluateHelperButton
                         idSeccion={asignatura.id_seccion}
-                        asignatura={asignatura.asignatura}
+                        idAyudante={ayudante.id_ayudante}
                       />
-                    ) : (
-                      <span className="text-muted">Sin reportes</span>
-                    )}
+                    </div>
                   </td>
                 </tr>
               ))}
-              {/* Fila de separación */}
-              <tr className="table-separator" style={{ backgroundColor: '#f8f9fa' }}>
-                <td colSpan="6" style={{ height: '10px' }}></td>
-              </tr>
             </React.Fragment>
           ))}
         </tbody>
